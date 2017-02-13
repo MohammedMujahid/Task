@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Task</string>
+    <string name="action_menu">Menu</string>
+    <string name="year_text">Year</string>
+</resources>

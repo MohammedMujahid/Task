@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#F06292</color>
+    <color name="activityBackground">#E8EAF6</color>
+    <color name="headerTextColor">#212121</color>
+    <color name="tabBackground">#000000</color>
+    <color name="fragmentBackground">#997986CB</color>
+    <color name="tabTextColor">#FFFFFF</color>
+    <color name="daysTextColor">#000000</color>
+</resources>
