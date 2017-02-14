@@ -22,7 +22,7 @@ public class XMonthAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return monthList.size();
+        return monthList.length;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class XMonthAdapter extends BaseAdapter {
             tv = (TextView) convertView;
         }
 
-        tv.setText(monthList.get(position));
+        tv.setText(monthList[position]);
 
         return tv;
     }

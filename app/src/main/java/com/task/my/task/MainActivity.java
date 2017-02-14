@@ -1,5 +1,8 @@
 package com.task.my.task;
 
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,19 +10,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.task.my.task.database.DBOpenHelper;
+import com.task.my.task.database.TableFields;
 import com.task.my.task.fragment.DaysPagerAdapter;
 import com.task.my.task.fragment.FragmentDays;
 import com.task.my.task.fragment.FragmentYear;
 import com.task.my.task.fragment.TextDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,12 +35,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public static List<Integer> yearList;
 
-    public static List<String> monthList;
+    public static String[] monthList;
     public static int year, month, day;
     private static Calendar cal;
     public static int startYear;
 
     //TODO: Create Constants
+    public static final int MONTH_WIN = 20;
     private byte state;
     private TextView header;
     private FragmentManager manager;
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements
 //        getWindow().setBackgroundDrawableResource(R.drawable.background);
 
         yearList = new ArrayList<>();
-        monthList = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+        monthList = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         header = (TextView) findViewById(R.id.header);
         cal = Calendar.getInstance();
         startYear = (cal.get(Calendar.YEAR) / 20) * 20 + 1;
@@ -79,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
     }
-
 
 
     @Override
@@ -183,6 +188,38 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         tabLayout.setVisibility(View.VISIBLE);
+
+        LayoutInflater inflater = getLayoutInflater();
+        TextView tv;
+
+        DBOpenHelper helper = new DBOpenHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        int win, rows;
+
+        for (int i = 0; i < 12; i++) {
+
+            win = (int) DatabaseUtils.queryNumEntries(db,
+                    TableFields.DateEntry.TABLE_NAME, TableFields.DateEntry.DAYS_DATE + " LIKE ? AND " +
+                            TableFields.DateEntry.DAYS_WIN + " = " + TableFields.DateEntry.CHECKED,
+                    new String[]{year + "-" + (i + 1) + "%"});
+
+            rows = (int) DatabaseUtils.queryNumEntries(db,
+                    TableFields.DateEntry.TABLE_NAME, TableFields.DateEntry.DAYS_DATE + " LIKE ?",
+                    new String[]{year + "-" + (i + 1) + "%"});
+
+            tv = (TextView) inflater.inflate(R.layout.month_tab, null);
+
+            tv.setText(monthList[i]);
+
+            if (win > MONTH_WIN) {
+                tv.setTextColor(Color.GREEN);
+            } else if (rows > 0) {
+                tv.setTextColor(Color.RED);
+            }
+
+            tabLayout.getTabAt(i).setCustomView(tv);
+
+        }
 
     }
 

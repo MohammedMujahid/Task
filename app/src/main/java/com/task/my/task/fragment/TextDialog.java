@@ -69,8 +69,6 @@ public class TextDialog extends DialogFragment implements LoaderManager.LoaderCa
         TextView tv = (TextView) view.findViewById(R.id.text_title);
         tv.setText(day + "/" + month + "/" + year);
 
-
-
         Button addButton = (Button) view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +120,8 @@ public class TextDialog extends DialogFragment implements LoaderManager.LoaderCa
 //                            getContext().getContentResolver().delete(TextProvider.URI_CONTENT_EVENT, TableFields.EventEntry.EVENT_CREATED + "=?", new String[] {selectedDate});
                             handler.startDelete(1, null, TextProvider.URI_CONTENT_EVENT, TableFields.EventEntry.EVENT_CREATED + "=?", new String[]{selectedDate});
 
+                            handler.startDelete(1, null, TextProvider.URI_CONTENT_DAYS, TableFields.DateEntry.DAYS_DATE + "=?", new String[] {selectedDate});
+
                         }
 
 
@@ -133,11 +133,13 @@ public class TextDialog extends DialogFragment implements LoaderManager.LoaderCa
                         c = new ContentValues(2);
                         c.put(TableFields.DateEntry.DAYS_DATE, selectedDate);
 
-                        if (count > listSize/2 + 1) {
+                        if (count >= listSize/2 + 1) {
                             c.put(TableFields.DateEntry.DAYS_WIN, TableFields.DateEntry.CHECKED);
                         }
 
                         //TODO: Insert Record to Table
+
+                        handler.startInsert(0, null, TextProvider.URI_CONTENT_DAYS, c);
 
                         mDialog.restartPager();
 
@@ -158,6 +160,7 @@ public class TextDialog extends DialogFragment implements LoaderManager.LoaderCa
                             handler.startDelete(1, null, TextProvider.URI_CONTENT_EVENT, TableFields.EventEntry.EVENT_CREATED + "=?", new String[]{selectedDate});
 
                             //TODO: Delete Record from Table
+                            handler.startDelete(1, null, TextProvider.URI_CONTENT_DAYS, TableFields.DateEntry.DAYS_DATE + "=?", new String[] {selectedDate});
 
                             mDialog.restartPager();
 

@@ -164,7 +164,6 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
         }
 
 
-
         db.close();
 
 

@@ -9,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.task.my.task.R;
 import com.task.my.task.adapter.XMonthAdapter;
 
 import static com.task.my.task.MainActivity.month;
-import static com.task.my.task.MainActivity.monthList;
 
 
 //TODO: Remove
@@ -43,8 +41,7 @@ public class XFragmentMonth extends Fragment {
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv = (TextView) view;
-                month = monthList.indexOf(tv.getText().toString()) + 1;
+                month = i + 1;
                 mMonth.monthDone();
             }
         });
