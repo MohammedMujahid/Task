@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements
 
     //TODO: Create Constants
     private byte state;
+    public static final int MONTH_STATE = 1;
+    public static final int YEAR_STATE = 0;
     private TextView header;
     private FragmentManager manager;
     private List<FragmentDays> fragmentList;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         header = (TextView) findViewById(R.id.header);
         cal = Calendar.getInstance();
         startYear = (cal.get(Calendar.YEAR) / 20) * 20 + 1;
-        state = 1;
+        state = MONTH_STATE;
         year = 0;
 
         if (savedInstanceState != null) {
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void showFragment() {
 
-        if (state == 1) {
+        if (state == MONTH_STATE) {
 
             if (year == 0) {
                 year = cal.get(Calendar.YEAR);
@@ -256,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements
 
         addPager();
 
-        state = 1;
+        state = MONTH_STATE;
 
     }
 
@@ -276,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements
 
         //TODO: Check for transition
         Fragment oldFragment, newFragment;
-        if (state == 0) {
+        if (state == YEAR_STATE) {
             startYear = yearList.get(0) - yearList.size();
             oldFragment = manager.findFragmentById(R.id.fragment_container);
             newFragment = new FragmentYear();
@@ -303,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements
     public void goRight(View view) {
 
         Fragment oldFragment, newFragment;
-        if (state == 0) {
+        if (state == YEAR_STATE) {
             startYear = yearList.get(yearList.size() - 1) + 1;
             oldFragment = manager.findFragmentById(R.id.fragment_container);
             newFragment = new FragmentYear();
@@ -331,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements
     public void goBack(View view) {
 
 
-        if (state == 0) {
+        if (state == YEAR_STATE) {
 
             int currentYear = (cal.get(Calendar.YEAR) / 20) * 20 + 1;
 
@@ -370,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements
 
             findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
 
-            state = 0;
+            state = YEAR_STATE;
 
             header.setText(R.string.year_text);
         }
