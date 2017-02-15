@@ -131,7 +131,6 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
                 position = i * 6 + i + j;
                 current = daysList[position];
 
-
                 tv = (TextView) View.inflate(getActivity(), R.layout.table_cell, null);
                 tv.setText(String.valueOf(current));
 
@@ -140,7 +139,7 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
                     tv.setOnClickListener(this);
 
                     count = (int) DatabaseUtils.queryNumEntries(db, TableFields.EventEntry.TABLE_NAME,
-                            TableFields.EventEntry.EVENT_CREATED + " = ? and " + TableFields.EventEntry.EVENT_CHECKED + " = " + TableFields.EventEntry.CHECKED,
+                            TableFields.EventEntry.EVENT_CREATED + " = ? AND " + TableFields.EventEntry.EVENT_CHECKED + " = " + TableFields.EventEntry.CHECKED,
                             new String[]{year + "-" + month + "-" + current});
                     rowNum = (int) DatabaseUtils.queryNumEntries(db, TableFields.EventEntry.TABLE_NAME,
                             TableFields.EventEntry.EVENT_CREATED + " = ?",

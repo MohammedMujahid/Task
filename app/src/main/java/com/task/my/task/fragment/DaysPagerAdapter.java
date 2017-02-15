@@ -31,4 +31,5 @@ public class DaysPagerAdapter extends FragmentStatePagerAdapter {
 //    public CharSequence getPageTitle(int position) {
 //        return MainActivity.monthList[position];
 //    }
+
 }

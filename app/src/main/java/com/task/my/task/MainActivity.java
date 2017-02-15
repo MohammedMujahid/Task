@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements
     public static int startYear;
 
     //TODO: Create Constants
-    public static final int MONTH_WIN = 20;
     private byte state;
     private TextView header;
     private FragmentManager manager;
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements
 //        getWindow().setBackgroundDrawableResource(R.drawable.background);
 
         yearList = new ArrayList<>();
-        monthList = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        monthList = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         header = (TextView) findViewById(R.id.header);
         cal = Calendar.getInstance();
         startYear = (cal.get(Calendar.YEAR) / 20) * 20 + 1;
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     }
+
 
 
     @Override
@@ -189,6 +189,8 @@ public class MainActivity extends AppCompatActivity implements
 
         tabLayout.setVisibility(View.VISIBLE);
 
+
+        //Adding tab styles with one of three state - win, loss, neutral
         LayoutInflater inflater = getLayoutInflater();
         TextView tv;
 
@@ -201,17 +203,17 @@ public class MainActivity extends AppCompatActivity implements
             win = (int) DatabaseUtils.queryNumEntries(db,
                     TableFields.DateEntry.TABLE_NAME, TableFields.DateEntry.DAYS_DATE + " LIKE ? AND " +
                             TableFields.DateEntry.DAYS_WIN + " = " + TableFields.DateEntry.CHECKED,
-                    new String[]{year + "-" + (i + 1) + "%"});
+                    new String[] {year + "-" + (i+1) + "%"});
 
             rows = (int) DatabaseUtils.queryNumEntries(db,
                     TableFields.DateEntry.TABLE_NAME, TableFields.DateEntry.DAYS_DATE + " LIKE ?",
-                    new String[]{year + "-" + (i + 1) + "%"});
+                    new String[]{year + "-" + (i+1) + "%"});
 
             tv = (TextView) inflater.inflate(R.layout.month_tab, null);
 
             tv.setText(monthList[i]);
 
-            if (win > MONTH_WIN) {
+            if (win >= (rows/2) + 1) {
                 tv.setTextColor(Color.GREEN);
             } else if (rows > 0) {
                 tv.setTextColor(Color.RED);
