@@ -198,7 +198,7 @@ public class TextDialog extends DialogFragment implements LoaderManager.LoaderCa
 
     private void addToList(int check, String text, Boolean hasText) {
 
-        LinearLayout listLayout = (LinearLayout) inflater.inflate(R.layout.my_list, null);
+        LinearLayout listLayout = (LinearLayout) inflater.inflate(R.layout.dialog_list, null);
         listLayout.setId(position);
 
         EditText et = (EditText) listLayout.findViewById(R.id.editText);

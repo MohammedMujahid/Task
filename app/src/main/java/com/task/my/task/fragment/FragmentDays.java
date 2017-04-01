@@ -146,9 +146,10 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
                             new String[]{year + "-" + month + "-" + current});
 
 
-                    if (count >= rowNum/2 + 1) {
+                    if (count == rowNum && count != 0) {
                         tv.setBackgroundResource(R.drawable.ic_flag_win);
-
+                    } else if (count >= rowNum/2 + 1) {
+                        tv.setBackgroundResource(R.drawable.ic_flag_semi_win);
                     } else if (rowNum > 0) {
                         tv.setBackgroundResource(R.drawable.ic_flag_loss);
                     }

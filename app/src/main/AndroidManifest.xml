@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.task.my.task.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,12 +19,21 @@
             </intent-filter>
         </activity>
 
-        <!--To use ContentProvide it must be registered-->
+        <!-- To use ContentProvide it must be registered -->
         <provider
+            android:name=".database.TextProvider"
             android:authorities="com.task.my.task.textprovider"
-            android:name="com.task.my.task.database.TextProvider"
-            android:exported="false"/>
+            android:exported="false" />
 
+        <activity
+            android:name=".EventListActivity"
+            android:label="@string/title_activity_event_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.task.my.task.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

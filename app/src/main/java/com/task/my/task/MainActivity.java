@@ -1,5 +1,6 @@
 package com.task.my.task;
 
+import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -113,9 +114,12 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_menu) {
+        if (id == R.id.action_list) {
 
-            Toast.makeText(this, "Has no action", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, EventListActivity.class);
+            startActivity(intent);
+
 
             return true;
         }
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onPageSelected(int position) {
+                //Required to query events
                 month = position + 1;
             }
 
