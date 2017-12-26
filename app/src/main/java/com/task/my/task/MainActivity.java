@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        getWindow().setBackgroundDrawableResource(R.drawable.background);
+        getWindow().setBackgroundDrawableResource(R.drawable.background);
 
         yearList = new ArrayList<>();
         monthList = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -82,8 +82,12 @@ public class MainActivity extends AppCompatActivity implements
 
         manager = getSupportFragmentManager();
 
-
         showFragment();
+
+        Calendar cal = Calendar.getInstance();
+
+        TextView cDate = (TextView) findViewById(R.id.currentDate);
+        cDate.setText("Date: " + cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR));
 
 
     }
@@ -157,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements
             b = new Bundle(1);
             fragment = new FragmentDays();
             b.putInt(FragmentDays.MONTH_KEY, i + 1);
+            b.putInt(FragmentDays.YEAR_KEY, year);
             fragment.setArguments(b);
             fragmentList.add(fragment);
 

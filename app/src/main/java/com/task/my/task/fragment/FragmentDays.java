@@ -18,15 +18,18 @@ import com.task.my.task.R;
 import com.task.my.task.database.DBOpenHelper;
 import com.task.my.task.database.TableFields;
 
+import java.util.Calendar;
+
 import static com.task.my.task.MainActivity.day;
-import static com.task.my.task.MainActivity.year;
 
 public class FragmentDays extends Fragment implements View.OnClickListener {
 
     private DaysInterface mDays;
     private int daysList[];
     private int month;
+    private int year;
     public static final String MONTH_KEY = "Month";
+    public static final String YEAR_KEY = "Year";
 
 
     public interface DaysInterface {
@@ -41,6 +44,7 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
 
         if (getArguments() != null) {
             month = getArguments().getInt(MONTH_KEY);
+            year = getArguments().getInt(YEAR_KEY);
 
             position = dayCode(month);
             currentDays = days(month);
@@ -131,6 +135,7 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
                 position = i * 6 + i + j;
                 current = daysList[position];
 
+
                 tv = (TextView) View.inflate(getActivity(), R.layout.table_cell, null);
                 tv.setText(String.valueOf(current));
 
@@ -154,6 +159,11 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
                         tv.setBackgroundResource(R.drawable.ic_flag_loss);
                     }
 
+                    Calendar cal = Calendar.getInstance();
+                    if(current == (byte)cal.get(Calendar.DATE) && month == cal.get(Calendar.MONTH)+1 && year == cal.get(Calendar.YEAR)) {
+                        tv.setBackgroundColor(Color.BLACK);
+                        tv.setTextColor(Color.WHITE);
+                    }
 
                 } else {
                     tv.setTextColor(Color.WHITE);
