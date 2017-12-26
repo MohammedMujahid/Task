@@ -87,28 +87,6 @@ public class FragmentDays extends Fragment implements View.OnClickListener {
 
         }
 
-//        GridView gv = (GridView) view.findViewById(R.id.days_grid);
-//        DaysAdapter adapter = new DaysAdapter(getActivity(), daysList, month);
-
-//
-//        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
-//        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), daysList, month, getFragmentManager());
-//
-//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 7, GridLayoutManager.VERTICAL, false);
-//        rv.setLayoutManager(layoutManager);
-//        rv.setAdapter(adapter);
-
-
-//        gv.setAdapter(adapter);
-//
-//        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                TextView tv = (TextView) view;
-//                day = Integer.parseInt(tv.getText().toString());
-//                mDays.daysDone();
-//            }
-//        });
 
         addDays(view);
 
